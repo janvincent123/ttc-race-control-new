@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TTC Race Control</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>window.TTC_SUPABASE_URL=""; window.TTC_SUPABASE_ANON_KEY="";</script>
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <div class="eyebrow">TARAK2 TRAILMATIC CRAWLERS</div>
+      <h1>TTC RACE CONTROL</h1>
+    </div>
+    <div id="connectionBadge" class="badge offline">LOCAL</div>
+  </header>
+
+  <main class="shell">
+    <section id="setupScreen" class="screen active">
+      <div class="hero-card">
+        <div>
+          <div class="eyebrow">COMPETITION SETUP</div>
+          <h2>Create Race</h2>
+          <p>Register drivers first, configure courses, then open the marshal scoring board.</p>
+        </div>
+        <div class="mode-grid">
+          <button class="mode-card selected" data-mode="rock">ROCK CRAWLING<span>LOWEST CUMULATIVE POINTS</span></button>
+          <button class="mode-card" data-mode="time">TIME ATTACK<span>FASTEST CUMULATIVE TIME</span></button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">01 — EVENT DETAILS</div>
+        <div class="form-grid">
+          <label>Competition Name<input id="eventName" placeholder="TTC 1st Invitational..." /></label>
+          <label>Number of Courses<input id="courseCount" type="number" min="1" max="20" value="3" /></label>
+        </div>
+        <button id="createEventBtn" class="primary">CREATE COMPETITION</button>
+      </div>
+
+      <div id="driverPanel" class="panel hidden">
+        <div class="panel-title">02 — DRIVER REGISTRATION</div>
+        <div class="form-grid driver-form">
+          <label>Rig Number<input id="rigNo" placeholder="01" /></label>
+          <label>Driver Name<input id="driverName" placeholder="Juan Dela Cruz" /></label>
+          <label>Category<select id="category"><option>C1</option><option>C2</option><option>C3</option></select></label>
+          <label>Scale<select id="scale"><option>1:10</option><option>1:12</option></select></label>
+        </div>
+        <button id="addDriverBtn" class="secondary">+ ADD DRIVER</button>
+        <div id="driverList" class="table-wrap"></div>
+        <button id="continueBtn" class="primary">PROCEED TO SCORING</button>
+      </div>
+    </section>
+
+    <section id="scoringScreen" class="screen">
+      <div class="race-head">
+        <div><div class="eyebrow" id="raceModeLabel">ROCK CRAWLING COMPETITION</div><h2 id="raceTitle">Race</h2></div>
+        <button id="backSetupBtn" class="ghost">SETUP</button>
+      </div>
+      <div class="course-tabs" id="courseTabs"></div>
+      <div class="score-layout">
+        <div class="panel marshal-panel">
+          <div class="panel-title">COURSE <span id="currentCourseLabel">1</span> — MARSHAL BOARD</div>
+          <label>DRIVER<select id="scoreDriver"></select></label>
+          <div id="scoreBoard"></div>
+        </div>
+        <div class="panel leaderboard-panel">
+          <div class="panel-title">LIVE RESULTS</div>
+          <div id="leaderboard"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="rulesScreen" class="screen">
+      <div class="panel">
+        <div class="panel-title">SCORING RULES</div>
+        <div id="rulesEditor"></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
